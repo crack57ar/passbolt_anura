@@ -1,0 +1,25 @@
+passbolt:
+    image: passbolt:local 
+    ports:
+        - "0.0.0.0:443:443"
+        - "0.0.0.0:80:80"
+    volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /etc/timezone:/etc/timezone:ro
+    environment:
+        - DB_HOST=172.17.0.2
+    links:
+        - mysql:mysql
+mysql:
+    image: mysql:latest
+    ports:
+        - "0.0.0.0:3306:3306"
+    volumes:
+        - /etc/localtime:/etc/localtime:ro
+        - /etc/timezone:/etc/timezone:ro
+        - /home/miguel/Docker/passbolt_docker/data:/var/lib/mysql
+    environment:
+        - MYSQL_ROOT_PASSWORD=c0mplexp4ss
+        - MYSQL_USER=passbolt
+        - MYSQL_PASSWORD=P4ssb0lt 
+        - MYSQL_DATABASE=passbolt
